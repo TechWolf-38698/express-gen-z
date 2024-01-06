@@ -1,0 +1,44 @@
+{
+  "name": "express-gen-z",
+  "description": "A minimal express library to make development easy.",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "TechWolf-38698",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "express": "^4.18.2",
+    "reflect-metadata": "^0.1.14",
+    "tsyringe": "^4.8.0"
+  },
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/TechWolf-38698/express-gen-z"
+  },
+  "keywords": [
+    "express",
+    "web framework",
+    "backend",
+    "minimal",
+    "development",
+    "easy",
+    "utility",
+    "web server",
+    "middleware",
+    "node.js",
+    "rapid development",
+    "RESTful",
+    "API",
+    "server",
+    "framework",
+    "boilerplate"
+  ]
+}
