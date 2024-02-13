@@ -147,8 +147,16 @@ function _join_routes(...routes) {
 function attachController(app, di) {
     return __awaiter(this, void 0, void 0, function* () {
         let controllers = [];
-        const controllersPath = path.join(process.cwd(), "src/Controllers");
-        const controllerModule = yield Promise.resolve(`${path.join(controllersPath, "index")}`).then(s => __importStar(require(s)));
+        var controllerModule;
+        var controllersPath;
+        try {
+            controllersPath = path.join(process.cwd(), "src/Controllers");
+            controllerModule = yield Promise.resolve(`${path.join(controllersPath, "index")}`).then(s => __importStar(require(s)));
+        }
+        catch (err) {
+            controllersPath = path.join(process.cwd(), "Controllers");
+            controllerModule = yield Promise.resolve(`${path.join(controllersPath, "index")}`).then(s => __importStar(require(s)));
+        }
         Object.values(controllerModule).forEach((controller) => {
             // Assuming each controller exports a class
             controllers.push(controller);

@@ -11,7 +11,6 @@ import * as path from "path";
 import { DependencyContainer, InjectionToken, container } from "tsyringe";
 import { RequestValidator } from "./validators/request-validator";
 
-
 export * from "tsyringe";
 export type ActionResult<T> = Response<T | Error>;
 export type Nullable<T> = T | null;
@@ -205,8 +204,15 @@ function _join_routes(...routes: string[]): string {
 
 export async function attachController(app: Express, di: DependencyContainer) {
   let controllers: any[] = [];
-  const controllersPath = path.join(process.cwd(), "src/Controllers");
-  const controllerModule = await import(path.join(controllersPath, "index"));
+  var controllerModule;
+  var controllersPath;
+  try {
+    controllersPath = path.join(process.cwd(), "src/Controllers");
+    controllerModule = await import(path.join(controllersPath, "index"));
+  } catch (err) {
+    controllersPath = path.join(process.cwd(), "Controllers");
+    controllerModule = await import(path.join(controllersPath, "index"));
+  }
 
   Object.values(controllerModule).forEach((controller) => {
     // Assuming each controller exports a class
