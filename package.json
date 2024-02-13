@@ -1,7 +1,7 @@
 {
   "name": "express-gen-z",
   "description": "A minimal express library to make development easy.",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "index.js",
   "scripts": {
     "build": "tsc"
