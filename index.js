@@ -56,6 +56,7 @@ exports.EXPRESS_ACTION = Symbol.for("express:action");
 function Controller(info) {
     return function (target) {
         // injectable()(<any> target);
+        console.log(typeof target, 'controller');
         Reflect.defineMetadata(exports.EXPRESS_CONTROLLER, info, target);
         if (ControllersRegsitry.indexOf(target) != -1) {
             ControllersRegsitry.push(target);
@@ -73,6 +74,7 @@ function Action(info) {
 exports.Action = Action;
 function createHttpDecorator(method, route) {
     return function (target, propertyKey) {
+        console.log(typeof target);
         if (target.constructor) {
             const meta = Reflect.getMetadata(exports.EXPRESS_ACTION, target.constructor, propertyKey);
             if (meta) {

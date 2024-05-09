@@ -48,6 +48,8 @@ export const EXPRESS_ACTION = Symbol.for("express:action");
 export function Controller(info?: ControllerInfo): Function {
   return function (target: Function) {
     // injectable()(<any> target);
+    console.log(typeof target, "controller");
+
     Reflect.defineMetadata(EXPRESS_CONTROLLER, info, target);
     if (ControllersRegsitry.indexOf(target) != -1) {
       ControllersRegsitry.push(target);
@@ -123,26 +125,29 @@ export function Route(route1: string): Function {
 }
 export function Middlewares(middlewares: RequestHandler[]): Function {
   return function (target: any, propertyKey: string) {
-    if (target.constructor) {
-      const meta = Reflect.getMetadata(
-        EXPRESS_ACTION,
-        target.constructor,
-        propertyKey
-      );
-      if (meta) {
-        Reflect.defineMetadata(
+    if (typeof target == "function") {
+    } else {
+      if (target.constructor) {
+        const meta = Reflect.getMetadata(
           EXPRESS_ACTION,
-          { ...meta, middlewares: [...meta.middlewares, ...middlewares] },
           target.constructor,
           propertyKey
         );
-      } else {
-        Reflect.defineMetadata(
-          EXPRESS_ACTION,
-          { middlewares },
-          target.constructor,
-          propertyKey
-        );
+        if (meta) {
+          Reflect.defineMetadata(
+            EXPRESS_ACTION,
+            { ...meta, middlewares: [...meta.middlewares, ...middlewares] },
+            target.constructor,
+            propertyKey
+          );
+        } else {
+          Reflect.defineMetadata(
+            EXPRESS_ACTION,
+            { middlewares },
+            target.constructor,
+            propertyKey
+          );
+        }
       }
     }
   };
